@@ -6,6 +6,19 @@ export const AppState = reactive({
   /** @type {import('./models/Account.js').Account} */
   account: {},
 
-  /** @type {import('./models/Ad.js').Ad} */
-  ads: []
+  /** @type {import('./models/Account.js').Profile} */
+  profile: {},
+
+  /** @type {import('./models/Ad.js').Ad[]} */
+  ads: [],
+
+  /** @type {import('./models/Post.js').Post[]} */
+  posts: [],
+
+  /** @type {import('./models/Post.js').Post|null} */
+
+  activePost: {},
+
+  newer: null,
+  older: null
 })

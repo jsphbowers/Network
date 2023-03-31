@@ -5,7 +5,33 @@
   <main class="container-fluid">
     <section class="row">
       <div class="col-3">
-        Profile area
+        <section class="row" v-if="account">
+          <div class="col-12 card elevation-2">
+            <div>
+              <div class="d-flex justify-content-center">
+                <img v-if="account.picture" class="profile-img" :src="account.picture" alt="">
+                <h4 v-if="account.graduated == true"><i class="mdi mdi-school"></i></h4>
+              </div>
+              <div>
+                <h4>{{ account.class }}</h4>
+                <h3>{{ account.name }}</h3>
+              </div>
+              <div>
+                <ul>
+                  <li v-if="account.github">
+                    <i class="mdi mdi-github">{{ account?.github }}</i>
+                  </li>
+                  <li v-if="account.linkedin">
+                    <i class="mdi mdi-linkedin">{{ account?.linkedin }}</i>
+                  </li>
+                  <li v-if="account.resume">
+                    <i class="mdi mdi-file">{{ account?.resume }}</i>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
       </div>
       <div class="col-7">
         <router-view />
@@ -13,8 +39,8 @@
       <div class="col-2">
         <section class="row">
           <div class="col-12">
-            <img class="img-fluid" :src="appState.ads[0].square" alt="placeholder">
-            <img class="img-fluid" :src="appState.ads[1].square" alt="placeholder">
+            <img class="img-fluid" :src="appState?.ads[0]?.square" :alt="appState?.ads[0]?.title">
+            <img class="img-fluid" :src="appState?.ads[1]?.square" :alt="appState?.ads[1]?.title">
           </div>
         </section>
       </div>
@@ -46,7 +72,10 @@ export default {
     }
     onMounted(() => getAdds())
     return {
-      appState: computed(() => AppState)
+      appState: computed(() => AppState),
+      profile: computed(() => AppState.profile),
+      account: computed(() => AppState.account),
+
     }
   },
   components: { Navbar }
@@ -65,5 +94,11 @@ footer {
   place-content: center;
   height: 32px;
   background-color: #418ffc;
+}
+
+.profile-img {
+  height: 200px;
+  width: 200px;
+  border-radius: 50%;
 }
 </style>
