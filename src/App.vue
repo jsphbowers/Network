@@ -19,13 +19,13 @@
               <div>
                 <ul>
                   <li v-if="account.github">
-                    <i class="mdi mdi-github">{{ account?.github }}</i>
+                    <i class="mdi mdi-github"></i>
                   </li>
                   <li v-if="account.linkedin">
-                    <i class="mdi mdi-linkedin">{{ account?.linkedin }}</i>
+                    <i class="mdi mdi-linkedin"></i>
                   </li>
                   <li v-if="account.resume">
-                    <i class="mdi mdi-file">{{ account?.resume }}</i>
+                    <i class="mdi mdi-file"></i>
                   </li>
                 </ul>
               </div>
