@@ -31,15 +31,29 @@
             <div>
               <p>{{ profile.bio }}</p>
             </div>
-            <div class="d-flex justify-content-end" v-if="account.id == profile.id">
-              <button class="btn btn-info">Edit</button>
-            </div>
           </div>
         </div>
       </div>
     </section>
 
     <section class="row">
+      <div v-if="account.id == profile.id">
+        <div class="col-12 card p-2 d-flex">
+          <form @submit.prevent="createPost()" class="card elevation-3">
+            <div class="form-floating m-2">
+              <textarea v-model="editable.body" class="form-control" placeholder="Write something creative..."
+                id="floatingTextarea"></textarea>
+              <label for="floatingTextarea">Post Body</label>
+            </div>
+            <div class="input-group mb-3 p-2">
+              <span class="input-group-text" id="inputGroup-sizing-default">URL</span>
+              <input v-model="editable.imgUrl" type="url" class="form-control" aria-label="Url for photo"
+                aria-describedby="inputGroup-sizing-default">
+            </div>
+            <button class="btn btn-success m-2">Post!</button>
+          </form>
+        </div>
+      </div>
       <div v-for="p in posts" :key="p.id" class="col-12 my-2">
         <PostCard :post="p" />
       </div>
@@ -52,7 +66,7 @@
 
 
 <script>
-import { onMounted } from "vue";
+import { onMounted, ref } from "vue";
 import { logger } from "../utils/Logger.js";
 import Pop from "../utils/Pop.js";
 import { useRoute } from "vue-router";
@@ -65,6 +79,7 @@ import PostCard from "../components/PostCard.vue";
 export default {
   setup() {
     const route = useRoute();
+    const editable = ref({})
     async function getProfileById() {
       try {
         const profileId = route.params.profileId;
@@ -89,10 +104,22 @@ export default {
     onMounted(() => getProfileById()),
       onMounted(() => getPostsById());
     return {
+      editable,
       route,
       profile: computed(() => AppState.activeProfile),
       posts: computed(() => AppState.posts),
-      account: computed(() => AppState.account)
+      account: computed(() => AppState.account),
+
+      async createPost() {
+        try {
+          const post = editable.value
+          logger.log('[WE MAKING A POST]', post)
+          await postsService.createPost(post)
+        } catch (error) {
+          logger.log(error.message)
+          Pop.error(error.message)
+        }
+      },
     };
   },
   components: { PostCard }

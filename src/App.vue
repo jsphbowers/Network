@@ -19,13 +19,19 @@
               <div>
                 <ul>
                   <li v-if="account.github">
-                    <i class="mdi mdi-github"></i>
+                    <h3>
+                      <a :href="account.github"><i class="mdi mdi-github"></i></a>
+                    </h3>
                   </li>
                   <li v-if="account.linkedin">
-                    <i class="mdi mdi-linkedin"></i>
+                    <h3>
+                      <a :href="account.linkedin"><i class="mdi mdi-linkedin"></i></a>
+                    </h3>
                   </li>
                   <li v-if="account.resume">
-                    <i class="mdi mdi-file"></i>
+                    <h3>
+                      <a :href="account.resume"><i class="mdi mdi-file"></i></a>
+                    </h3>
                   </li>
                 </ul>
               </div>
