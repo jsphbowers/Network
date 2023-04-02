@@ -22,12 +22,21 @@
     <div v-if="post.imgUrl">
       <img class="img-fluid" :src="post.imgUrl" alt="picture">
     </div>
+    <div v-if="post.creatorId == account.id" class="d-flex justify-content-end">
+      <button @click="deletePost()" class="btn btn-danger"><i class="mdi mdi-delete"></i></button>
+    </div>
   </div>
 </template>
 
 
 <script>
+import { computed } from "@vue/reactivity";
+import { AppState } from "../AppState.js";
 import { Post } from "../models/Post.js";
+import { postsService } from "../services/PostsService.js";
+import { logger } from "../utils/Logger.js";
+import Pop from "../utils/Pop.js";
+import { router } from "../router.js";
 
 export default {
   props: {
@@ -36,8 +45,34 @@ export default {
       required: true
     }
   },
-  setup() {
-    return {}
+  setup(props) {
+    return {
+      account: computed(() => AppState.account),
+
+      async like(postId) {
+        try {
+          logger.log("[ACCOUNT ID]", postId);
+          await postsService.like(postId);
+          Pop.success("Thanks!");
+        }
+        catch (error) {
+          logger.error(error.message);
+          Pop.error(error.message);
+        }
+      },
+
+      async deletePost() {
+        try {
+          const postId = props.post.id
+          if (await Pop.confirm('Are you sure??!!?!?!?! This post is pretty schweet!!!'))
+            await postsService.deletePost(postId)
+          Pop.toast('Post Deleted')
+        } catch (error) {
+          logger.log(error.message)
+          Pop.error(error.message)
+        }
+      }
+    }
   }
 }
 </script>

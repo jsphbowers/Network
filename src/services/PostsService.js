@@ -21,6 +21,26 @@ class PostsService {
     AppState.posts = res.data.posts.map(p => new Post(p))
   }
 
+  async createPost(postData) {
+    const res = await api.post('api/posts', postData)
+    logger.log('made a post', res.data)
+    const newPost = new Post(res.data)
+    AppState.posts.push(newPost)
+  }
+
+  async deletePost(postId) {
+    const res = await api.delete(`api/posts/${postId}`)
+    logger.log('[DELETING POST]', res.data)
+  }
+
+  async getPostsById(query) {
+    const res = await api.get(`api/posts`, { params: query })
+    logger.log(res.data)
+    AppState.newer = res.data.newer
+    AppState.older = res.data.older
+    AppState.posts = res.data.posts.map(p => new Post(p))
+  }
+
   async like(postId) {
     const res = await api.post(`api/posts/${postId}/like`)
   }

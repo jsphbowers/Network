@@ -7,9 +7,20 @@
 
     <!-- SECTION Form for making new Post -->
     <section class="row justify-content-center">
-      <div class="col-11">
-        <form class="card elevation-3">
-          <input class="form-control" type="text">
+      <div class="col-11 card p-2 d-flex">
+        <img class="profile-img p-2" :src="account.picture" alt="">
+        <form @submit.prevent="createPost()" class="card elevation-3">
+          <div class="form-floating m-2">
+            <textarea v-model="editable.body" class="form-control" placeholder="Write something creative..."
+              id="floatingTextarea"></textarea>
+            <label for="floatingTextarea">Post Body</label>
+          </div>
+          <div class="input-group mb-3 p-2">
+            <span class="input-group-text" id="inputGroup-sizing-default">URL</span>
+            <input v-model="editable.imgUrl" type="url" class="form-control" aria-label="Url for photo"
+              aria-describedby="inputGroup-sizing-default">
+          </div>
+          <button class="btn btn-success m-2">Post!</button>
         </form>
       </div>
     </section>
@@ -29,7 +40,7 @@
 </template>
 
 <script>
-import { onMounted } from "vue";
+import { onMounted, ref } from "vue";
 import { logger } from "../utils/Logger.js";
 import Pop from "../utils/Pop.js";
 import { postsService } from "../services/PostsService.js"
@@ -39,6 +50,8 @@ import PostCard from "../components/PostCard.vue";
 
 export default {
   setup() {
+    const editable = ref({})
+
     async function getPosts() {
       try {
         await postsService.getPosts();
@@ -50,17 +63,18 @@ export default {
     }
     onMounted(() => getPosts());
     return {
+      editable,
       posts: computed(() => AppState.posts),
       account: computed(() => AppState.account),
-      async like(postId) {
+
+      async createPost() {
         try {
-          logger.log("[ACCOUNT ID]", postId);
-          await postsService.like(postId);
-          Pop.success("Thanks!");
-        }
-        catch (error) {
-          logger.error(error.message);
-          Pop.error(error.message);
+          const post = editable.value
+          logger.log('[WE MAKING A POST]', post)
+          await postsService.createPost(post)
+        } catch (error) {
+          logger.log(error.message)
+          Pop.error(error.message)
         }
       }
     };
@@ -88,5 +102,11 @@ export default {
       object-position: center;
     }
   }
+}
+
+.profile-img {
+  height: 80px;
+  width: 80px;
+  border-radius: 50%;
 }
 </style>

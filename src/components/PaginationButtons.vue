@@ -1,7 +1,7 @@
 <template>
   <div class="col-11 d-flex justify-content-center p-3">
-    <button @click="changePage(newer)" class="btn btn-info mx-3">Newer</button>
-    <button @click="changePage(older)" class="btn btn-info mx-3">Older</button>
+    <button :disabled="newer == null" @click="changePage(newer)" class="btn btn-info mx-3">Newer</button>
+    <button :disabled="older == null" @click="changePage(older)" class="btn btn-info mx-3">Older</button>
   </div>
 </template>
 
