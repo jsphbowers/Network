@@ -12,19 +12,15 @@
             <h4 v-if="profile.graduated"><i class="school-icon  position-absolute mdi mdi-school"></i></h4>
             <div class="d-flex mt-2">
               <h3 class="mx-2" v-if="profile.github">
-                <i class="selectable mdi mdi-github" @click=""></i>
+                <a :href="profile.github"><i class="selectable mdi mdi-github"></i></a>
               </h3>
               <!-- TODO Get Router Links to work! -->
-              <!-- <router-link>
-                <h3 class="mx-2" v-if="profile.linkedin">
-                  <i class="selectable mdi mdi-linkedin"></i>
-                </h3>
-              </router-link>
-              <router-link>
-                <h3 class="mx-2" v-if="profile.resume">
-                  <i class="selectable mdi mdi-file"></i>
-                </h3>
-              </router-link> -->
+              <h3 class="mx-2" v-if="profile.linkedin">
+                <a :href="profile.linkedin"><i class="selectable mdi mdi-linkedin"></i></a>
+              </h3>
+              <h3 class="mx-2" v-if="profile.resume">
+                <a :href="profile.resume"><i class="selectable mdi mdi-file"></i></a>
+              </h3>
             </div>
           </div>
           <div class="position-relative bio-info">
