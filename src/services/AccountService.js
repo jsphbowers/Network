@@ -12,6 +12,12 @@ class AccountService {
       logger.error('HAVE YOU STARTED YOUR SERVER YET???', err)
     }
   }
+
+  async editAccount(edits) {
+    const res = await api.put('/account', edits)
+    logger.log('EDITING ACCOUNT', res.data)
+    AppState.account = new Account(res.data)
+  }
 }
 
 export const accountService = new AccountService()

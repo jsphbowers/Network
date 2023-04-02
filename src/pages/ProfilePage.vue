@@ -8,7 +8,7 @@
         <div class="card elevation-4 p-2">
           <img class="position-relative img-fluid cover-img" :src="profile.coverImg" alt="">
           <div class="d-flex justify-content-between">
-            <img class="profile-img  position-absolute" :src="profile.picture" :alt="profile.name">
+            <img class="profile-img position-absolute" :src="profile.picture" :alt="profile.name">
             <h4 v-if="profile.graduated"><i class="school-icon  position-absolute mdi mdi-school"></i></h4>
             <div class="d-flex mt-2">
               <h3 class="mx-2" v-if="profile.github">
@@ -35,7 +35,7 @@
             <div>
               <p>{{ profile.bio }}</p>
             </div>
-            <div class="d-flex justify-content-end">
+            <div class="d-flex justify-content-end" v-if="account.id == profile.id">
               <button class="btn btn-info">Edit</button>
             </div>
           </div>

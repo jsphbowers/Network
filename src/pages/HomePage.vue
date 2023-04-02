@@ -1,5 +1,18 @@
 <template>
   <div class="container-fluid ">
+    <!-- SECTION Search Bar -->
+    <section class="row justify-content-center">
+      <div class="col-8 p-3">
+        <form @submit.prevent="searchPosts()">
+          <div class="input-group mb-3">
+            <input type="text" v-model="search.query" class="form-control" placeholder="Search" aria-label="Search"
+              aria-describedby="button-addon2">
+            <button class="btn btn-outline-secondary" type="submit" id="search"><i class="mdi mdi-magnify"></i></button>
+          </div>
+        </form>
+      </div>
+    </section>
+
     <!-- SECTION Page nav -->
     <section class="row justify-content-center">
       <PaginationButtons />
@@ -51,6 +64,7 @@ import PostCard from "../components/PostCard.vue";
 export default {
   setup() {
     const editable = ref({})
+    const search = ref({})
 
     async function getPosts() {
       try {
@@ -64,6 +78,7 @@ export default {
     onMounted(() => getPosts());
     return {
       editable,
+      search,
       posts: computed(() => AppState.posts),
       account: computed(() => AppState.account),
 
@@ -72,6 +87,17 @@ export default {
           const post = editable.value
           logger.log('[WE MAKING A POST]', post)
           await postsService.createPost(post)
+        } catch (error) {
+          logger.log(error.message)
+          Pop.error(error.message)
+        }
+      },
+
+      async searchPosts() {
+        try {
+          const query = search.value
+          // logger.log(query)
+          await postsService.searchPosts(query)
         } catch (error) {
           logger.log(error.message)
           Pop.error(error.message)

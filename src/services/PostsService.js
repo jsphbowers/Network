@@ -41,6 +41,14 @@ class PostsService {
     AppState.posts = res.data.posts.map(p => new Post(p))
   }
 
+  async searchPosts(query) {
+    const res = await api.get(`api/posts?`, { params: query })
+    logger.log(res.data)
+    AppState.posts = res.data.posts.map(p => new Post(p))
+    AppState.newer = res.data.newer
+    AppState.older = res.data.older
+  }
+
   async like(postId) {
     const res = await api.post(`api/posts/${postId}/like`)
   }
