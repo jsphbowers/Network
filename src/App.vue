@@ -4,9 +4,9 @@
   </header>
   <main class="container-fluid">
     <section class="row">
-      <div class="col-3">
+      <div class="col-3 p-2">
         <section class="row" v-if="account.id">
-          <div class="col-12 card elevation-2">
+          <div class="col-12 card elevation-2 p-2">
             <div>
               <div class="d-flex justify-content-center">
                 <img v-if="account.picture" class="profile-img p-2" :src="account.picture" alt="">

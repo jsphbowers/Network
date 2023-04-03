@@ -49,7 +49,6 @@
     <section class="row justify-content-center" v-if="profiles">
       <h2>Profiles</h2>
       <div v-for="p in profiles" :key="p.id" class="col-11 my-2">
-        {{ p.id }}
         <div class="card elevation-3 p-3">
           <div class="d-flex">
             <router-link :to="{ name: 'Profile', params: { profileId: p.id } }">
