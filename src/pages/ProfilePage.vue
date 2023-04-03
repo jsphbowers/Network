@@ -7,10 +7,10 @@
       <div class="col-12">
         <div class="card elevation-4 p-2">
           <img class="position-relative img-fluid cover-img" :src="profile.coverImg" alt="">
-          <div class="d-flex justify-content-between">
-            <img class="profile-img position-absolute" :src="profile.picture" :alt="profile.name">
-            <h4 v-if="profile.graduated"><i class="school-icon  position-absolute mdi mdi-school"></i></h4>
-            <div class="d-flex mt-2">
+          <img class="profile-img position-absolute" :src="profile.picture" :alt="profile.name">
+          <div class="d-flex justify-content-end">
+            <h4 v-if="profile.graduated"><i class="mdi mdi-school"></i></h4>
+            <div class="d-flex mt-2 justify-content-end">
               <h3 class="mx-2" v-if="profile.github">
                 <a :href="profile.github"><i class="selectable mdi mdi-github"></i></a>
               </h3>
@@ -132,7 +132,8 @@ export default {
   height: 200px;
   width: 200px;
   border-radius: 50%;
-  bottom: 170px;
+  bottom: 150px;
+  left: 150px;
 }
 
 .school-icon {

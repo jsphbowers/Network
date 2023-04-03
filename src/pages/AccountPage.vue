@@ -13,6 +13,11 @@
           aria-describedby="inputGroup-sizing-default">
       </div>
       <div class="input-group mb-3 p-2">
+        <span class="input-group-text" id="inputGroup-sizing-default">Class</span>
+        <input v-model="editable.class" type="text" id="class" class="form-control" aria-label="Class"
+          aria-describedby="inputGroup-sizing-default">
+      </div>
+      <div class="input-group mb-3 p-2">
         <span class="input-group-text" id="inputGroup-sizing-default">Profile photo</span>
         <input v-model="editable.picture" type="url" id="picture" class="form-control" aria-label="Url for photo"
           aria-describedby="inputGroup-sizing-default">
@@ -43,6 +48,11 @@
             aria-label="Checkbox for following text input">
           <label class="px-2" for="graduated">Graduated?</label>
         </div>
+      </div>
+      <div class="form-floating m-2">
+        <textarea v-model="editable.bio" class="form-control" placeholder="Tell us about yoself..."
+          id="floatingTextarea"></textarea>
+        <label for="floatingTextarea">Bio</label>
       </div>
       <button class="btn btn-success m-2" type="submit">Submit Edits</button>
     </form>

@@ -19,7 +19,7 @@
     </section>
 
     <!-- SECTION Form for making new Post -->
-    <section class="row justify-content-center">
+    <section class="row justify-content-center" v-if="account.id">
       <div class="col-11 card p-2 d-flex">
         <img class="profile-img p-2" :src="account.picture" alt="">
         <form @submit.prevent="createPost()" class="card elevation-3">
@@ -41,7 +41,29 @@
     <!-- SECTION Feed for Posts -->
     <section class="row justify-content-center">
       <div v-for="p in posts" :key="p.id" class="col-11 my-2">
+        <h2>Posts</h2>
         <PostCard :post="p" />
+      </div>
+    </section>
+
+    <section class="row justify-content-center" v-if="profiles">
+      <h2>Profiles</h2>
+      <div v-for="p in profiles" :key="p.id" class="col-11 my-2">
+        {{ p.id }}
+        <div class="card elevation-3 p-3">
+          <div class="d-flex">
+            <!-- <router-link :to="{ name: 'Profile', params: { profileId: p.id } }"> -->
+            <img class="profile-img" :src="p.picture" alt="">
+            <!-- </router-link> -->
+            <div>
+              <h5 class="mx-2">{{ p.name }}</h5>
+              <div class="d-flex px-3">
+                <h5>{{ p.class }}</h5>
+                <h5 v-if="p.graduated"><i class="mdi mdi-school"></i></h5>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -81,6 +103,7 @@ export default {
       search,
       posts: computed(() => AppState.posts),
       account: computed(() => AppState.account),
+      profiles: computed(() => AppState.profiles),
 
       async createPost() {
         try {
@@ -98,6 +121,7 @@ export default {
           const query = search.value
           // logger.log(query)
           await postsService.searchPosts(query)
+          await postsService.searchProfiles(query)
         } catch (error) {
           logger.log(error.message)
           Pop.error(error.message)
