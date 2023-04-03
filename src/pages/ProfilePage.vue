@@ -14,7 +14,6 @@
               <h3 class="mx-2" v-if="profile.github">
                 <a :href="profile.github"><i class="selectable mdi mdi-github"></i></a>
               </h3>
-              <!-- TODO Get Router Links to work! -->
               <h3 class="mx-2" v-if="profile.linkedin">
                 <a :href="profile.linkedin"><i class="selectable mdi mdi-linkedin"></i></a>
               </h3>
@@ -36,10 +35,10 @@
       </div>
     </section>
 
-    <section class="row">
+    <section class="row py-2">
       <div v-if="account.id == profile.id">
-        <div class="col-12 card p-2 d-flex">
-          <form @submit.prevent="createPost()" class="card elevation-3">
+        <div class="col-12 card p-2 d-flex elevation-3">
+          <form @submit.prevent="createPost()" class="">
             <div class="form-floating m-2">
               <textarea v-model="editable.body" class="form-control" placeholder="Write something creative..."
                 id="floatingTextarea"></textarea>

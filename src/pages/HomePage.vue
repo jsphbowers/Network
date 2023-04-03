@@ -40,8 +40,8 @@
 
     <!-- SECTION Feed for Posts -->
     <section class="row justify-content-center">
+      <h2>Posts</h2>
       <div v-for="p in posts" :key="p.id" class="col-11 my-2">
-        <h2>Posts</h2>
         <PostCard :post="p" />
       </div>
     </section>

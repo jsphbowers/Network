@@ -5,11 +5,11 @@
   <main class="container-fluid">
     <section class="row">
       <div class="col-3">
-        <section class="row" v-if="account">
+        <section class="row" v-if="account.id">
           <div class="col-12 card elevation-2">
             <div>
               <div class="d-flex justify-content-center">
-                <img v-if="account.picture" class="profile-img" :src="account.picture" alt="">
+                <img v-if="account.picture" class="profile-img p-2" :src="account.picture" alt="">
                 <h4 v-if="account.graduated == true"><i class="mdi mdi-school"></i></h4>
               </div>
               <div>
