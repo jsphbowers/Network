@@ -52,9 +52,9 @@
         {{ p.id }}
         <div class="card elevation-3 p-3">
           <div class="d-flex">
-            <!-- <router-link :to="{ name: 'Profile', params: { profileId: p.id } }"> -->
-            <img class="profile-img" :src="p.picture" alt="">
-            <!-- </router-link> -->
+            <router-link :to="{ name: 'Profile', params: { profileId: p.id } }">
+              <img class="selectable profile-img" :src="p.picture" alt="">
+            </router-link>
             <div>
               <h5 class="mx-2">{{ p.name }}</h5>
               <div class="d-flex px-3">
